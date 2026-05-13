@@ -224,7 +224,13 @@ export default function LandingPage() {
     <div className="min-h-screen font-sans" style={{ background: "#FFFFFF", color: "#0A0A0A" }}>
 
       {/* ── NAVBAR ── */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "nav-scrolled py-3" : "py-5 bg-white/50 backdrop-blur-md"}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        menuOpen 
+          ? "bg-white py-5 border-b border-transparent" 
+          : scrolled 
+            ? "nav-scrolled py-3" 
+            : "py-5 bg-white/50 backdrop-blur-md"
+      }`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="z-50 flex items-center">
@@ -253,21 +259,25 @@ export default function LandingPage() {
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-
-        {/* Mobile Menu Overlay */}
-        <div className={`fixed inset-0 bg-white z-40 transition-transform duration-500 ease-in-out md:hidden flex flex-col pt-24 px-6 ${menuOpen ? "translate-y-0" : "-translate-y-full"}`}>
-          <nav className="flex flex-col gap-6 text-[24px] font-bold tracking-tight">
-            <a href="#produto" onClick={() => setMenuOpen(false)}>O Produto</a>
-            <a href="#fluxo" onClick={() => setMenuOpen(false)}>Como Funciona</a>
-            <a href="#diferenciais" onClick={() => setMenuOpen(false)}>Diferenciais</a>
-            <a href="#planos" onClick={() => setMenuOpen(false)}>Planos</a>
-          </nav>
-          <div className="mt-auto pb-12 flex flex-col gap-4">
-            <Link href="/login" onClick={() => setMenuOpen(false)} className="w-full py-4 text-center text-[16px] font-semibold border border-gray-200 rounded-full">Entrar na Conta</Link>
-            <Link href="/login" onClick={() => setMenuOpen(false)} className="w-full py-4 text-center text-[16px] font-semibold text-white rounded-full bg-[#0A0A0A]">Começar Grátis</Link>
-          </div>
-        </div>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`fixed inset-0 bg-white z-40 transition-all duration-300 ease-in-out md:hidden flex flex-col pt-28 px-6 ${
+        menuOpen 
+          ? "translate-y-0 opacity-100 pointer-events-auto visible" 
+          : "-translate-y-8 opacity-0 pointer-events-none invisible"
+      }`}>
+        <nav className="flex flex-col gap-6 text-[24px] font-bold tracking-tight">
+          <a href="#produto" onClick={() => setMenuOpen(false)}>O Produto</a>
+          <a href="#fluxo" onClick={() => setMenuOpen(false)}>Como Funciona</a>
+          <a href="#diferenciais" onClick={() => setMenuOpen(false)}>Diferenciais</a>
+          <a href="#planos" onClick={() => setMenuOpen(false)}>Planos</a>
+        </nav>
+        <div className="mt-auto pb-12 flex flex-col gap-4">
+          <Link href="/login" onClick={() => setMenuOpen(false)} className="w-full py-4 text-center text-[16px] font-semibold border border-gray-200 rounded-full">Entrar na Conta</Link>
+          <Link href="/login" onClick={() => setMenuOpen(false)} className="w-full py-4 text-center text-[16px] font-semibold text-white rounded-full bg-[#0A0A0A]">Começar Grátis</Link>
+        </div>
+      </div>
 
       {/* ── HERO ── */}
       <section className="pt-[180px] lg:pt-[220px] pb-16 px-6 relative overflow-hidden">
