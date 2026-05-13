@@ -233,7 +233,7 @@ export default function LandingPage() {
           
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-10">
-            {[{l:"O Produto",h:"#produto"},{l:"Como Funciona",h:"#fluxo"},{l:"Diferenciais",h:"#diferenciais"}].map((t,i) => (
+            {[{l:"O Produto",h:"#produto"},{l:"Como Funciona",h:"#fluxo"},{l:"Diferenciais",h:"#diferenciais"},{l:"Planos",h:"#planos"}].map((t,i) => (
               <a key={i} href={t.h} className="text-[14px] text-gray-500 hover:text-black transition-colors font-medium">
                 {t.l}
               </a>
@@ -260,6 +260,7 @@ export default function LandingPage() {
             <a href="#produto" onClick={() => setMenuOpen(false)}>O Produto</a>
             <a href="#fluxo" onClick={() => setMenuOpen(false)}>Como Funciona</a>
             <a href="#diferenciais" onClick={() => setMenuOpen(false)}>Diferenciais</a>
+            <a href="#planos" onClick={() => setMenuOpen(false)}>Planos</a>
           </nav>
           <div className="mt-auto pb-12 flex flex-col gap-4">
             <Link href="/login" onClick={() => setMenuOpen(false)} className="w-full py-4 text-center text-[16px] font-semibold border border-gray-200 rounded-full">Entrar na Conta</Link>
@@ -543,6 +544,129 @@ export default function LandingPage() {
               </FadeUp>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── PLANOS ── */}
+      <section id="planos" className="py-24 lg:py-[120px] px-6 bg-white relative overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          <FadeUp className="text-center mb-20">
+            <span className="text-[14px] font-bold tracking-[0.14em] uppercase text-gray-400 mb-4 block">Investimento</span>
+            <h2 className="text-[36px] md:text-[52px] font-bold tracking-tight mb-6">O plano perfeito para a sua fase.</h2>
+            <p className="text-[18px] text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
+              Sem contratos de fidelidade ou letras miúdas. Mude de plano ou cancele quando quiser.
+            </p>
+          </FadeUp>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch pt-4 pb-8">
+            {/* PLANO 1 */}
+            <FadeUp delay={1} className="flex">
+              <div className="bg-[#F9F9FB] rounded-[32px] p-8 border border-gray-100 flex flex-col w-full transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:-translate-y-1">
+                <div className="mb-6">
+                  <h3 className="text-[20px] font-extrabold text-gray-900 mb-2">Starter</h3>
+                  <p className="text-[14px] text-gray-500 font-medium">Ideal para validar suas primeiras consultorias inteligentes.</p>
+                </div>
+                <div className="mb-8 flex items-baseline gap-1">
+                  <span className="text-[18px] font-extrabold text-gray-900">R$</span>
+                  <span className="text-[56px] font-black tracking-tighter text-gray-900 leading-none">37</span>
+                  <span className="text-[14px] text-gray-400 font-semibold">/mês</span>
+                </div>
+                <ul className="space-y-4 mb-10 flex-1">
+                  {[
+                    "5 Relatórios gerados por IA /mês",
+                    "1 Formulário Ativo",
+                    "Mesa de Trabalho (Kanban)",
+                    "Envio rápido via WhatsApp",
+                    "Domínio AliadDO incluído"
+                  ].map((f, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-[14px] font-medium text-gray-600">
+                      <CheckCircle2 className="w-5 h-5 text-[#1DB989] shrink-0" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/login" className="w-full py-4 px-6 text-center rounded-2xl font-bold text-[15px] border border-gray-200 text-gray-900 bg-white hover:border-gray-400 active:scale-95 transition-all">
+                  Começar Agora
+                </Link>
+              </div>
+            </FadeUp>
+
+            {/* PLANO 2 (O BEST SELLER) */}
+            <FadeUp delay={2} className="flex relative z-10">
+              <div className="bg-white rounded-[32px] p-8 border-[2px] border-[#1DB989] flex flex-col w-full shadow-[0_32px_64px_rgba(29,185,137,0.08)] md:-translate-y-4 hover:-translate-y-5 transition-all duration-300 relative overflow-hidden">
+                <div className="absolute top-0 right-0 left-0 h-2 bg-gradient-to-r from-[#1DB989] to-[#0D6E56]"></div>
+                <div className="absolute top-4 right-6 bg-[#1DB989] text-[#0A0A0A] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
+                  Mais Popular
+                </div>
+                <div className="mb-6 mt-2">
+                  <h3 className="text-[22px] font-black text-gray-900 mb-2 flex items-center gap-2">
+                    Pro <ShieldCheck className="w-5 h-5 text-[#1DB989]" />
+                  </h3>
+                  <p className="text-[14px] text-gray-500 font-medium">Para consultores profissionais em plena atividade.</p>
+                </div>
+                <div className="mb-8 flex items-baseline gap-1">
+                  <span className="text-[18px] font-extrabold text-gray-900">R$</span>
+                  <span className="text-[56px] font-black tracking-tighter text-gray-900 leading-none">77</span>
+                  <span className="text-[14px] text-gray-400 font-semibold">/mês</span>
+                </div>
+                <ul className="space-y-4 mb-10 flex-1">
+                  {[
+                    "25 Relatórios gerados por IA /mês",
+                    "Formulários Ilimitados",
+                    "White-label (Remover nossa logo)",
+                    "Customização Completa de Cores",
+                    "Mesa de Trabalho (Kanban)",
+                    "Templates de WhatsApp exclusivos",
+                    "Suporte Prioritário"
+                  ].map((f, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-[14px] font-bold text-gray-900">
+                      <CheckCircle2 className="w-5 h-5 text-[#1DB989] shrink-0" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/login" className="w-full py-4 px-6 text-center rounded-2xl font-bold text-[15px] text-white bg-[#0A0A0A] hover:bg-gray-900 active:scale-95 shadow-lg transition-all">
+                  Assinar Plano PRO
+                </Link>
+              </div>
+            </FadeUp>
+
+            {/* PLANO 3 */}
+            <FadeUp delay={3} className="flex">
+              <div className="bg-[#F9F9FB] rounded-[32px] p-8 border border-gray-100 flex flex-col w-full transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:-translate-y-1">
+                <div className="mb-6">
+                  <h3 className="text-[20px] font-extrabold text-gray-900 mb-2">Diamond</h3>
+                  <p className="text-[14px] text-gray-500 font-medium">Para consultorias sêniores e agências de alta escala.</p>
+                </div>
+                <div className="mb-8 flex items-baseline gap-1">
+                  <span className="text-[18px] font-extrabold text-gray-900">R$</span>
+                  <span className="text-[56px] font-black tracking-tighter text-gray-900 leading-none">147</span>
+                  <span className="text-[14px] text-gray-400 font-semibold">/mês</span>
+                </div>
+                <ul className="space-y-4 mb-10 flex-1">
+                  {[
+                    "75 Relatórios gerados por IA /mês",
+                    "Formulários Ilimitados",
+                    "Acesso p/ Equipe (Até 3 consultores)",
+                    "White-label Completo",
+                    "Painel Kanban Compartilhado",
+                    "Gerente de Conta no WhatsApp"
+                  ].map((f, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-[14px] font-medium text-gray-600">
+                      <CheckCircle2 className="w-5 h-5 text-[#1DB989] shrink-0" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/login" className="w-full py-4 px-6 text-center rounded-2xl font-bold text-[15px] border border-gray-200 text-gray-900 bg-white hover:border-gray-400 active:scale-95 transition-all">
+                  Falar com Consultor
+                </Link>
+              </div>
+            </FadeUp>
+          </div>
+          <p className="text-center mt-8 text-[14px] text-gray-400 font-bold tracking-wide uppercase">
+            🚀 Precisa de mais? Oferecemos pacotes de créditos de IA avulsos sob demanda.
+          </p>
         </div>
       </section>
 
