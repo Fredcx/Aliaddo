@@ -1,0 +1,191 @@
+/* ── Apple-Style Landing Page Animations & Styles ── */
+
+:root {
+  --color-mint: #1DB989;
+  --color-black: #0A0A0A;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: var(--color-black);
+}
+
+/* Fade-up animation */
+.fade-up-element {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-up-element.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+
+/* Navbar styling */
+.nav-scrolled {
+  box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-link-active {
+  color: var(--color-black) !important;
+  font-weight: 600;
+}
+
+/* Mobile Menu */
+.mobile-menu-enter {
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mobile-menu-enter-active {
+  transform: translateY(0);
+}
+
+/* Hero Mockup Floating */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-16px); }
+  100% { transform: translateY(0px); }
+}
+.floating-mockup {
+  animation: float 6s ease-in-out infinite;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.12);
+  border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-container {
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+.marquee-container::before, .marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}
+.marquee-content {
+  display: flex;
+  gap: 4rem;
+  animation: marquee 25s linear infinite;
+  padding-left: 4rem;
+}
+
+/* Tabs animation */
+@keyframes fadeInSlide {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.tab-content-active {
+  animation: fadeInSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Stepper */
+.stepper-line-bg {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #E5E7EB;
+  z-index: 0;
+}
+.stepper-line-fill {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  height: 2px;
+  background: var(--color-mint);
+  width: 0%;
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+/* Feature Cards */
+.feature-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid #F3F4F6;
+  background: #FAFAFA;
+}
+.feature-card:hover {
+  border-color: var(--color-mint);
+  background: #FFFFFF;
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+}
+.feature-card .feature-icon {
+  transition: color 0.4s ease;
+  color: #0A0A0A;
+}
+.feature-card:hover .feature-icon {
+  color: var(--color-mint);
+}
+
+/* CTA Pulse */
+@keyframes pulseMint {
+  0% { box-shadow: 0 0 0 0 rgba(29, 185, 137, 0.4); }
+  70% { box-shadow: 0 0 0 20px rgba(29, 185, 137, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(29, 185, 137, 0); }
+}
+.btn-pulse {
+  animation: pulseMint 2.5s infinite;
+}
+
+/* Dark Section Grid */
+.dark-grid-bg {
+  background-color: var(--color-black);
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+  animation: bgPan 40s linear infinite;
+}
+@keyframes bgPan {
+  from { background-position: 0 0; }
+  to { background-position: -50px -50px; }
+}
+
+/* Text Reveal Animation */
+.reveal-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.reveal-line span {
+  display: inline-block;
+  transform: translateY(100%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-line.visible span {
+  transform: translateY(0);
+}

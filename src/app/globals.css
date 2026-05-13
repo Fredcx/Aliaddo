@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #F5F5F7;
+    --foreground: #0A0A0A;
+    --border: #E5E5E5;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply tracking-tight;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Prevent browser default link colors from bleeding into Next.js Link components */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Custom utility for glassmorphism */
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/50 shadow-sm;
+  }
+
+  .text-brand-gradient {
+    background: linear-gradient(90deg, #181C25 0%, #15B392 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-brand-gradient {
+    background: linear-gradient(90deg, #181C25 0%, #15B392 100%);
+  }
+}

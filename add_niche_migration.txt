@@ -1,0 +1,2 @@
+// Note: To add the new niche column, we must run this on Supabase:
+// ALTER TABLE public.profiles ADD COLUMN niche text;
