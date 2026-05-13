@@ -500,7 +500,7 @@ export default function LandingPage() {
             </FadeUp>
 
             {/* Com AliaDDO */}
-            <FadeUp delay={2} className="rounded-[32px] p-8 md:p-12 border border-transparent relative overflow-hidden" style={{ backgroundColor: "#F0FDF9" }}>
+            <FadeUp delay={2} className="rounded-[32px] p-8 md:p-12 border border-transparent relative overflow-hidden bg-[#F0FDF9]">
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#1DB989] rounded-full filter blur-[100px] opacity-10"></div>
               <h3 className="text-[20px] font-bold mb-8 flex items-center gap-3" style={{ color: "#0D6E56" }}>
                 <CheckCircle2 className="w-6 h-6" style={{ color: "#1DB989" }} /> Com AliaDDO
