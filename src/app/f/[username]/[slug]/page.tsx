@@ -6,7 +6,8 @@ import { ArrowRight, CheckCircle, Loader2 } from "lucide-react";
 interface FormField {
     id: string;
     label: string;
-    type: 'text' | 'email' | 'textarea' | 'tel' | 'number' | 'date' | 'boolean';
+    type: 'text' | 'email' | 'textarea' | 'tel' | 'number' | 'date' | 'boolean' | 'select';
+    options?: string[];
     required: boolean;
     placeholder: string;
 }

@@ -191,6 +191,7 @@ export default function LoginPage({
                         </>
                     )}                    {view === 'login' ? (
                         <>
+                            <Link href="/forgot-password" className="mb-3 self-end text-sm font-medium text-[#147D69] hover:underline">Esqueci minha senha</Link>
                             <button
                                 type="submit"
                                 className="bg-[#1D1D1F] hover:bg-black rounded-full px-4 py-3.5 text-white font-medium mb-4 w-full transition-all active:scale-[0.98]"

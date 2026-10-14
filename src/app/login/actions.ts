@@ -15,7 +15,7 @@ export async function login(formData: FormData) {
     });
 
     if (error) {
-        redirect("/login?message=Could not authenticate user");
+        redirect("/login?message=E-mail%20ou%20senha%20incorretos.%20Voc%C3%AA%20pode%20recuperar%20seu%20acesso%20em%20Esqueci%20minha%20senha.");
     }
 
     revalidatePath("/", "layout");

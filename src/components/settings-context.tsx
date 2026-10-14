@@ -8,6 +8,7 @@ interface Settings {
     rules_text: string;
     form_fields: any[];
     form_cover_image_url: string | null;
+    logo_url?: string | null;
     primary_color: string;
     template: string;
     intro_text: string;
