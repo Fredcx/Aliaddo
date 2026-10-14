@@ -17,10 +17,10 @@ test('email links use the configured site, never a submitted redirect', () => {
   }
 });
 
-test('callback permits only dashboard or password reset destinations', () => {
+test('callback permits only home or password reset destinations', () => {
   assert.equal(authDestination('/reset-password'), '/reset-password');
   for (const value of [null, '//evil.example', 'https://evil.example', '/\\evil.example', '/reset-password?next=evil', '/api/seed']) {
-    assert.equal(authDestination(value), '/dashboard');
+    assert.equal(authDestination(value), '/home');
   }
 });
 

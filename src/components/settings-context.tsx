@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
 interface Settings {
     id: string;
@@ -27,6 +28,8 @@ interface SettingsContextType {
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
+    const pathname = usePathname();
+    const publicPage = ["/", "/demo", "/login", "/forgot-password", "/reset-password", "/auth/callback"].includes(pathname) || pathname.startsWith("/f/");
     const [settings, setSettings] = useState<Settings | null>(null);
     const [username, setUsername] = useState("");
     const [isLoading, setIsLoading] = useState(true);
@@ -47,8 +50,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     };
 
     useEffect(() => {
+        if (publicPage) { setIsLoading(false); return; }
         fetchSettings();
-    }, []);
+    }, [publicPage]);
 
     return (
         <SettingsContext.Provider value={{ settings, username, isLoading, refreshSettings: fetchSettings }}>

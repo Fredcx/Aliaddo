@@ -98,7 +98,8 @@ export default function DashboardPage() {
                         </div>
                         <h1 className="text-[26px] font-semibold text-[#1D1D1F] tracking-tight">Mesa de Trabalho</h1>
                     </div>
-                    <p className="text-[14px] text-[#86868B] mt-1 ml-[52px]">Acompanhe suas consultorias em tempo real.</p>
+                    <p className="text-[14px] text-[#86868B] mt-1 ml-[52px]">Acompanhe respostas e documentos de cada atendimento.</p>
+                    <Link href="/clients" className="inline-block text-[13px] font-medium text-[#147D69] mt-2 ml-[52px]">Gerenciar clientes e retornos →</Link>
                 </div>
                 
                 {/* Filters Row */}
@@ -326,6 +327,7 @@ function NewCard({ id, name, email, date, status, formTitle, onRefresh, onViewAn
                     className="w-full py-2 rounded-full text-[13px] font-medium flex items-center justify-center gap-1.5 transition-all outline-none bg-[#F5F5F7] text-[#1D1D1F] hover:bg-[#E8E8ED] active:scale-95">
                     <Eye className="w-3.5 h-3.5" /> Ver Respostas
                 </button>
+                <Link href={`/pipeline/intake/${id}`} className="mt-2 flex items-center justify-center gap-1 rounded-full py-2 text-xs font-semibold text-[#147D69] hover:bg-emerald-50">Levar ao funil <ArrowRight size={13} /></Link>
             </div>
         </div>
     );

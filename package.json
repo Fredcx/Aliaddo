@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/auth.test.mjs",
+    "test": "node --experimental-strip-types --test tests/crm.test.mjs tests/crm-database.test.mjs tests/auth.test.mjs tests/pipeline.test.mjs",
     "deploy": "git add . && git commit -m \"deploy automatico\" && git push"
   },
   "dependencies": {
@@ -27,6 +27,7 @@
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.9",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

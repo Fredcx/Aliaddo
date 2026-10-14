@@ -17,7 +17,7 @@ export function recoveryRedirect(siteUrl: string | undefined): string {
 }
 
 export function authDestination(value: string | null) {
-  return value === "/reset-password" ? value : "/dashboard";
+  return value === "/reset-password" ? value : "/home";
 }
 
 export function newPassword(password: unknown, confirmation: unknown): string {

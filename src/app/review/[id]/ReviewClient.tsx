@@ -52,10 +52,11 @@ export default function ReviewClient({ id, initialContent, clientName, primaryCo
             const supabase = createClient();
             
             // Salva as últimas alterações do texto primeiro
-            await supabase
+            const { error: saveError } = await supabase
                 .from("documents")
-                .update({ content: markdown })
+                .update({ content: markdown, updated_at: new Date().toISOString() })
                 .eq("client_id", id);
+            if (saveError) throw saveError;
             
             // Move o cliente para o próximo status (Enviado)
             const { error } = await supabase
@@ -265,7 +266,7 @@ export default function ReviewClient({ id, initialContent, clientName, primaryCo
                             disabled={isSaving}
                             className="w-full py-3.5 bg-[#1D1D1F] hover:bg-black text-white rounded-full font-medium text-[15px] transition-all active:scale-[0.98] flex items-center justify-center gap-2 mb-3 shadow-[0_4px_14px_rgba(0,0,0,0.1)] outline-none disabled:opacity-50"
                         >
-                            <CheckCircle className="w-[18px] h-[18px]" /> {isSaving ? "Enviando..." : "Enviar para Cliente"}
+                            <CheckCircle className="w-[18px] h-[18px]" /> {isSaving ? "Salvando..." : "Aprovar e preparar envio"}
                         </button>
                     )}
                     <button className="w-full py-3 bg-transparent border border-[#E5E5EA] text-[#86868B] hover:text-[#EF4444] hover:bg-[#F5F5F7] hover:border-transparent rounded-full font-medium text-[14px] transition-all outline-none">

@@ -3,6 +3,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { isPublicAuthRoute } from '@/lib/auth-validation'
 
 export async function updateSession(request: NextRequest) {
+    // Public, fictional sandbox. It never reads or writes account data.
+    if (request.nextUrl.pathname === '/demo') return NextResponse.next({ request });
     let supabaseResponse = NextResponse.next({
         request,
     })
@@ -54,7 +56,7 @@ export async function updateSession(request: NextRequest) {
     // If user is logged in and tries to access /login or /
     if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/')) {
         const url = request.nextUrl.clone()
-        url.pathname = '/dashboard'
+        url.pathname = '/home'
         const response = NextResponse.redirect(url)
         supabaseResponse.cookies.getAll().forEach(cookie => response.cookies.set(cookie))
         return response

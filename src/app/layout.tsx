@@ -7,8 +7,8 @@ import { SettingsProvider } from "@/components/settings-context";
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 export const metadata: Metadata = {
-  title: "AliaDDO - Sistema",
-  description: "Gerencie suas consultorias com IA",
+  title: "Aliaddo · Seu negócio, bem acompanhado",
+  description: "Clientes, oportunidades, formulários e próximos passos. Um aliado na gestão do seu negócio.",
 };
 
 export default function RootLayout({
