@@ -96,10 +96,10 @@ export default function DashboardPage() {
                         <div className="w-11 h-11 rounded-[16px] bg-[#1D1D1F] flex items-center justify-center shrink-0">
                             <LayoutDashboard className="w-5 h-5 text-[#15B392]" strokeWidth={1.8} />
                         </div>
-                        <h1 className="text-[26px] font-semibold text-[#1D1D1F] tracking-tight">Mesa de Trabalho</h1>
+                        <h1 className="text-[26px] font-semibold text-[#1D1D1F] tracking-tight">Respostas e entregas</h1>
                     </div>
-                    <p className="text-[14px] text-[#86868B] mt-1 ml-[52px]">Acompanhe respostas e documentos de cada atendimento.</p>
-                    <Link href="/clients" className="inline-block text-[13px] font-medium text-[#147D69] mt-2 ml-[52px]">Gerenciar clientes e retornos →</Link>
+                    <p className="text-[14px] text-[#86868B] mt-1 ml-[52px]">Confira os preenchimentos recebidos, gere um rascunho com IA e revise antes de preparar a entrega.</p>
+                    <Link href="/clients" className="inline-block text-[13px] font-medium text-[#147D69] mt-2 ml-[52px]">Ver fichas dos clientes →</Link>
                 </div>
                 
                 {/* Filters Row */}
@@ -174,7 +174,7 @@ export default function DashboardPage() {
                     {/* Col 4 */}
                     <Column title="Finalizados" count={doneC.length} icon={<CheckCircle className="w-4 h-4 text-[#34C759]" />}>
                         {doneC.length === 0
-                            ? <EmptyCol icon="🏆" text="Nenhum concluído" sub="Arraste ou finalize atendimentos para arquivar aqui." />
+                            ? <EmptyCol icon="🏆" text="Nenhum concluído" sub="Finalize a entrega para movê-la para esta etapa." />
                             : doneC.map(c => <DoneCard key={c.id} {...c} date={fmt(c.created_at)} formTitle={c.forms?.title} onRefresh={load} />)
                         }
                     </Column>
@@ -327,7 +327,7 @@ function NewCard({ id, name, email, date, status, formTitle, onRefresh, onViewAn
                     className="w-full py-2 rounded-full text-[13px] font-medium flex items-center justify-center gap-1.5 transition-all outline-none bg-[#F5F5F7] text-[#1D1D1F] hover:bg-[#E8E8ED] active:scale-95">
                     <Eye className="w-3.5 h-3.5" /> Ver Respostas
                 </button>
-                <Link href={`/pipeline/intake/${id}`} className="mt-2 flex items-center justify-center gap-1 rounded-full py-2 text-xs font-semibold text-[#147D69] hover:bg-emerald-50">Levar ao funil <ArrowRight size={13} /></Link>
+                <Link href={`/pipeline/intake/${id}`} className="mt-2 flex items-center justify-center gap-1 rounded-full py-2 text-xs font-semibold text-[#147D69] hover:bg-emerald-50">Criar oportunidade <ArrowRight size={13} /></Link>
             </div>
         </div>
     );

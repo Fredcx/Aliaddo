@@ -3,7 +3,7 @@ import { AlertCircle, ArrowLeft, ArrowRight } from "lucide-react";
 import { STAGES, formatDueDate, type ClientTask, type ContactStage } from "@/lib/crm";
 import { TaskToggle } from "./forms";
 
-export const panelClass = "rounded-2xl border border-[#E5E5EA] bg-white p-5 sm:p-6";
+export const panelClass = "workspace-card p-5 sm:p-6";
 
 export function StageBadge({ stage }: { stage: ContactStage }) {
   const colors = { lead: "bg-blue-50 text-blue-700", active: "bg-emerald-50 text-emerald-800", paused: "bg-amber-50 text-amber-800", archived: "bg-gray-100 text-gray-600" };
@@ -32,12 +32,12 @@ export function Pagination({ page, count, href, pageParam = "page" }: { page: nu
 
 export function TaskRow({ task, today, name }: { task: ClientTask; today: string; name?: string }) {
   const late = !task.completed_at && task.due_date < today;
-  return <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 py-4 last:border-0">
+  return <div id={`task-${task.id}`} className="workspace-task flex scroll-mt-28 flex-wrap items-center justify-between gap-3 border-b border-gray-100 py-5 last:border-0">
     <div className="min-w-0 flex-1 basis-48">
-      {name && <Link href={`/clients/${task.contact_id}`} className="text-xs font-medium text-[#147D69] hover:underline">{name}</Link>}
+      {name && <p className="mb-2 text-xs text-[#64748B]">{name} · <Link href={`/clients/${task.contact_id}`} className="font-medium text-[#087F8C] hover:underline">Ver cliente</Link></p>}
       <p className={`break-words text-sm font-medium ${task.completed_at ? "text-gray-500 line-through" : "text-gray-900"}`}>{task.title}</p>
       <p className={`mt-1 text-xs ${late ? "text-red-700" : "text-gray-500"}`}>
-        {task.completed_at ? "Concluído" : late ? "Atrasado" : task.due_date === today ? "Hoje" : "Agendado"} · {formatDueDate(task.due_date)}
+        {task.completed_at ? "Concluída" : late ? "Prazo vencido" : task.due_date === today ? "Para hoje" : "Prazo"} · {formatDueDate(task.due_date)}
       </p>
     </div>
     <TaskToggle task={task} />

@@ -34,10 +34,10 @@ export function OpportunityForm({ contacts, item, selectedContact, onSave }: { c
       </div>
       {stage === "lost" && <label className="block text-sm font-medium">Motivo do encerramento *<textarea name="lost_reason" required maxLength={500} defaultValue={item?.lost_reason} placeholder="Ex.: não é o momento, mudou de prioridade…" className={inputClass} /></label>}
       <label className="block text-sm font-medium">Valor estimado (R$)<input name="amount" inputMode="decimal" maxLength={16} defaultValue={item?.amount_cents === null || item?.amount_cents === undefined ? "" : (item.amount_cents / 100).toFixed(2).replace(".", ",")} placeholder="Ex.: 1500,00" className={inputClass} /><span className="mt-1 block text-xs font-normal text-gray-500">Opcional. Valor previsto para a oportunidade, sem registro de cobrança.</span></label>
-      <div className="rounded-xl bg-[#f4f7f1] p-4"><p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#748769]">O que acontece depois?</p>
+      <div className="rounded-xl bg-[#F4F6F8] p-4"><p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#526071]">O que acontece depois?</p>
         <label className="block text-sm font-medium">Próximo passo<input name="next_step" maxLength={200} defaultValue={item?.next_step} placeholder="Ex.: apresentar a proposta de acompanhamento" className={inputClass} /></label>
         <label className="mt-3 block text-sm font-medium">Data combinada<input name="next_date" type="date" defaultValue={item?.next_date || ""} className={inputClass} /></label>
-        <p className="mt-2 text-xs text-[#85907b]">Preencha os dois campos ou deixe ambos em branco. Datas no horário de Brasília.</p>
+        <p className="mt-2 text-xs text-[#526071]">Preencha os dois campos ou deixe ambos em branco. Datas no horário de Brasília.</p>
       </div>
       <label className="block text-sm font-medium">Notas da oportunidade<textarea name="notes" rows={3} maxLength={5000} defaultValue={item?.notes} placeholder="Necessidades, preferências e o que ficou combinado." className={inputClass} /></label>
     </fieldset>

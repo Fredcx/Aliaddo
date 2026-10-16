@@ -12,7 +12,7 @@ export default async function NewClientPage() {
   return <main className="mx-auto max-w-3xl px-4 py-10 sm:px-8">
     <Link href="/clients" className="mb-6 inline-flex items-center gap-2 text-sm text-gray-500"><ArrowLeft size={16} />Clientes</Link>
     <h1 className="mb-2 text-2xl font-semibold">Novo cliente</h1>
-    <p className="mb-6 text-sm text-gray-500">Comece com o nome. Você pode completar o cadastro e vincular atendimentos depois.</p>
+    <p className="mb-6 text-sm text-gray-500">Comece com o nome. Não é necessário preencher ou associar um formulário para cadastrar um cliente.</p>
     <section className={panelClass}><ContactForm /></section>
   </main>;
 }

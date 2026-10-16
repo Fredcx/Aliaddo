@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { CalendarDays, CheckCircle2 } from "lucide-react";
+import { Plus, CheckCircle2 } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { todayInBrazil, pageNumber, isUUID, type ClientTask } from "@/lib/crm";
 import { DataError, Pagination, TaskRow, panelClass } from "@/components/crm/ui";
+import { WorkspaceHeader, workspaceClass, primaryButton } from "@/components/crm/workspace-ui";
 
-const FILTERS = { pending: "Pendentes", overdue: "Atrasados", today: "Hoje", completed: "Concluídos" };
+const FILTERS = { pending: "Pendentes", overdue: "Atrasadas", today: "Hoje", completed: "Concluídas" };
 type TaskWithContact = ClientTask & { contacts: { name: string } | { name: string }[] | null };
 
 export default async function FollowUpsPage({ searchParams }: { searchParams: { filter?: string; page?: string; contact?: string } }) {
@@ -24,14 +25,13 @@ export default async function FollowUpsPage({ searchParams }: { searchParams: { 
   if (filter === "today") query = query.eq("due_date", today);
   const { data, count, error } = await query.order("due_date", { ascending: filter !== "completed" }).order("id").range((page - 1) * 30, page * 30 - 1);
 
-  return <main className="mx-auto max-w-5xl px-4 py-8 sm:px-8 sm:py-10">
-    <header className="mb-7"><h1 className="mb-2 flex items-center gap-3 text-2xl font-semibold"><CalendarDays className="text-[#147D69]" />Retornos</h1>
-      <p className="text-sm text-gray-500">Veja quem precisa de acompanhamento e o que ficou combinado. Datas no horário de Brasília.</p>
-    </header>
-    {contact && <div className="mb-5 flex flex-wrap gap-4 text-sm"><Link href={`/clients/${contact}`} className="font-medium text-[#147D69]">← Voltar ao cliente</Link><Link href={`/follow-ups?filter=${filter}`} className="text-gray-500 underline">Mostrar todos os clientes</Link></div>}
-    <nav aria-label="Filtrar retornos" className="mb-5 flex flex-wrap gap-2">{Object.entries(FILTERS).map(([value, label]) => <Link key={value} href={`/follow-ups?filter=${value}&contact=${contact}`} aria-current={value === filter ? "page" : undefined} className={`rounded-full px-4 py-2 text-sm font-medium ${value === filter ? "bg-[#147D69] text-white" : "border border-gray-200 bg-white text-gray-600"}`}>{label}</Link>)}</nav>
-    {error ? <DataError /> : <section className={panelClass} aria-label="Lista de retornos">
-      {!data?.length ? <div className="py-10 text-center"><CheckCircle2 className="mx-auto mb-3 text-[#147D69]" size={32} /><h2 className="font-semibold">Nenhum retorno nesta lista</h2><p className="mt-2 text-sm text-gray-500">Crie os próximos passos no cadastro de cada cliente.</p><Link href={contact ? `/clients/${contact}` : "/clients"} className="mt-4 inline-block text-sm font-semibold text-[#147D69]">{contact ? "Abrir cliente" : "Ver clientes"} →</Link></div> :
+  return <main className={workspaceClass}>
+    <WorkspaceHeader eyebrow="Gestão" title="Tarefas" description="Ações que você precisa realizar para seus clientes: ligar, revisar uma proposta ou combinar o próximo contato."><Link href={`/follow-ups/new${contact ? `?contact=${contact}` : ""}`} className={primaryButton}><Plus size={17} />Nova tarefa</Link></WorkspaceHeader>
+    <p className="mb-6 rounded-2xl border border-[#BCE5E8] bg-[#E8F8FA] px-5 py-4 text-sm leading-relaxed text-[#526071]">Escolha uma ação e um prazo. Depois de realizá-la, marque como concluída. Tarefas não reservam horários nem enviam mensagens automaticamente.</p>
+    {contact && <div className="mb-5 flex flex-wrap gap-4 text-sm"><Link href={`/clients/${contact}`} className="font-medium text-[#087F8C]">← Voltar ao cliente</Link><Link href={`/follow-ups?filter=${filter}`} className="text-gray-500 underline">Mostrar todos os clientes</Link></div>}
+    <nav aria-label="Filtrar tarefas" className="mb-5 flex w-fit flex-wrap gap-1 rounded-2xl bg-[#E9EDF1] p-1">{Object.entries(FILTERS).map(([value, label]) => <Link key={value} href={`/follow-ups?filter=${value}&contact=${contact}`} aria-current={value === filter ? "page" : undefined} className="workspace-tab">{label}</Link>)}</nav>
+    {error ? <DataError /> : <section className={panelClass} aria-label="Lista de tarefas">
+      {!data?.length ? <div className="py-10 text-center"><CheckCircle2 className="mx-auto mb-3 text-[#087F8C]" size={32} /><h2 className="font-semibold">Nenhuma tarefa nesta lista</h2><p className="mt-2 text-sm text-gray-500">Use Nova tarefa para registrar o que precisa ser feito.</p></div> :
         (data as TaskWithContact[]).map(task => <TaskRow key={task.id} task={task} today={today} name={(Array.isArray(task.contacts) ? task.contacts[0]?.name : task.contacts?.name) || "Cliente"} />)}
       <Pagination page={page} count={count || 0} href={`/follow-ups?filter=${filter}&contact=${contact}`} />
     </section>}

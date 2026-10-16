@@ -2,7 +2,7 @@
 
 Gestão de clientes, oportunidades e atendimentos para prestadores de serviços, consultores e profissionais de consultório. Formulários e IA continuam preparando documentos revisados pelo profissional.
 
-Experimente `/demo` sem login: dados fictícios, alterações em memória e nenhum envio ou consumo de IA. A área autenticada abre em **Hoje** e usa os dados da conta. Veja o escopo e a verificação em [docs/entrega-gestao.md](docs/entrega-gestao.md).
+Experimente `/demo` sem login: dados fictícios, alterações em memória e nenhum envio ou consumo de IA. A área autenticada abre em **Visão geral** e usa os dados da conta. Veja o escopo em [docs/entrega-gestao.md](docs/entrega-gestao.md) e a reorganização em [docs/organizacao-interface.md](docs/organizacao-interface.md).
 
 ## Fluxo
 
@@ -11,9 +11,9 @@ Experimente `/demo` sem login: dados fictícios, alterações em memória e nenh
 3. As respostas chegam a **Respostas e entregas**. A IA gera um rascunho usando as regras do formulário.
 4. Revise e prepare a entrega. O WhatsApp atual abre uma mensagem preenchida; o envio é manual.
 5. Na ficha do cliente, vincule respostas, registre contexto e adicione próximos passos.
-6. Em **Retornos**, acompanhe pendências, atrasos e conclusões.
+6. Em **Tarefas**, acompanhe pendências, atrasos e conclusões. Use **Nova tarefa** para escolher cliente, ação e prazo.
 7. Leve uma resposta ao **Funil**, confirmando a identidade do cliente, ou crie uma oportunidade manualmente. Registre origem, interesse, valor estimado, etapa e próxima ação.
-8. Em **Hoje**, acompanhe prioridades, formulários sem vínculo, documentos aguardando revisão e oportunidades.
+8. Em **Visão geral**, acompanhe prioridades, respostas sem vínculo, documentos aguardando revisão e oportunidades. **Como usar o Aliaddo** explica cada área.
 
 Veja o diagnóstico e a proposta de evolução em [docs/evolucao-produto.md](docs/evolucao-produto.md).
 

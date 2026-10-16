@@ -46,7 +46,7 @@ export async function addTask(contactId: string, data: FormData): Promise<Action
     const values = parseTask(data);
     // The composite foreign key also enforces ownership at database level.
     const { error } = await db.from("client_tasks").insert({ ...values, contact_id: contactId, profile_id: user.id });
-    if (error) throw new Error("Não foi possível criar o retorno. Tente novamente.");
+    if (error) throw new Error("Não foi possível criar a tarefa. Tente novamente.");
     refresh(contactId);
     return { success: true };
   } catch (error) { return failure(error); }
@@ -55,11 +55,11 @@ export async function addTask(contactId: string, data: FormData): Promise<Action
 export async function setTaskCompleted(taskId: string, completed: boolean): Promise<ActionResult> {
   try {
     const { db, user } = await session();
-    if (!isUUID(taskId) || typeof completed !== "boolean") throw new Error("Retorno inválido.");
+    if (!isUUID(taskId) || typeof completed !== "boolean") throw new Error("Tarefa inválida.");
     const { data, error } = await db.from("client_tasks")
       .update({ completed_at: completed ? new Date().toISOString() : null })
       .eq("id", taskId).eq("profile_id", user.id).select("contact_id").single();
-    if (error || !data) throw new Error("Não foi possível atualizar o retorno. Tente novamente.");
+    if (error || !data) throw new Error("Não foi possível atualizar a tarefa. Tente novamente.");
     refresh(data.contact_id);
     return { success: true };
   } catch (error) { return failure(error); }

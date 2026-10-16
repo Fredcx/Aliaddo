@@ -4,10 +4,11 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Check, RotateCcw, Link2, Unlink } from "lucide-react";
 import { saveContact, addTask, setTaskCompleted, linkSubmission } from "@/app/(dashboard)/clients/actions";
-import { STAGES, type Contact, type ClientTask } from "@/lib/crm";
+import { STAGES, type Contact, type ClientTask, type ActionResult } from "@/lib/crm";
+import { primaryButton } from "./workspace-ui";
 
-export const inputClass = "mt-1.5 w-full rounded-xl border border-[#E5E5EA] bg-white px-3 py-2.5 text-sm outline-none focus:border-[#0E9E82] focus:ring-2 focus:ring-[#0E9E82]/15";
-const buttonClass = "inline-flex items-center justify-center gap-2 rounded-xl bg-[#147D69] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#106653] disabled:opacity-50 disabled:cursor-wait";
+export const inputClass = "mt-1.5 w-full rounded-xl border border-[#E5E5EA] bg-white px-3 py-2.5 text-sm outline-none focus:border-[#087F8C] focus:ring-2 focus:ring-[#087F8C]/15";
+const buttonClass = primaryButton;
 
 // React 18 transitions do not stay pending across awaited server actions.
 // Keep a synchronous lock as well as visible pending state to prevent duplicates.
@@ -57,7 +58,7 @@ export function ContactForm({ contact }: { contact?: Contact }) {
             <input name="phone" type="tel" maxLength={40} autoComplete="tel" placeholder="+55 11 99999-9999" defaultValue={contact?.phone || ""} className={inputClass} />
           </label>
         </div>
-        <label className="block text-sm font-medium">Etapa do relacionamento
+        <label className="block text-sm font-medium">Situação do cliente
           <select name="stage" defaultValue={contact?.stage || "lead"} className={inputClass}>
             {Object.entries(STAGES).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
           </select>
@@ -73,7 +74,7 @@ export function ContactForm({ contact }: { contact?: Contact }) {
   );
 }
 
-export function TaskForm({ contactId, today }: { contactId: string; today: string }) {
+export function TaskForm({ contactId, today, contacts, redirectOnSave = false, onSave }: { contactId?: string; today: string; contacts?: { id: string; name: string }[]; redirectOnSave?: boolean; onSave?: (contactId: string, data: FormData) => Promise<ActionResult> }) {
   const { pending, run, networkError } = usePendingAction();
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
@@ -84,22 +85,24 @@ export function TaskForm({ contactId, today }: { contactId: string; today: strin
     const data = new FormData(event.currentTarget);
     setError(""); setSaved(false);
     void run(async () => {
-      const result = await addTask(contactId, data);
+      const selectedContact = contactId || String(data.get("contact_id") || "");
+      const result = onSave ? await onSave(selectedContact, data) : await addTask(selectedContact, data);
       if (result.error) setError(result.error);
-      else { form.current?.reset(); setSaved(true); router.refresh(); }
+      else { form.current?.reset(); setSaved(true); if (!onSave) { if (redirectOnSave) router.push(`/follow-ups?contact=${selectedContact}`); router.refresh(); } }
     });
   }}>
     <fieldset disabled={pending} className="space-y-3">
-      <label className="block text-sm font-medium">Próximo passo *
-        <input name="title" required maxLength={200} placeholder="Ex.: combinar o próximo encontro" className={inputClass} />
+      {contacts && <label className="block text-sm font-medium">Cliente *<select name="contact_id" required defaultValue={contactId || ""} className={inputClass}><option value="">Selecione o cliente desta tarefa</option>{contacts.map(contact => <option key={contact.id} value={contact.id}>{contact.name}</option>)}</select></label>}
+      <label className="block text-sm font-medium">O que você precisa fazer? *
+        <input name="title" required maxLength={200} placeholder="Ex.: ligar para combinar o próximo encontro" className={inputClass} />
       </label>
-      <label className="block text-sm font-medium">Data do retorno *
+      <label className="block text-sm font-medium">Prazo *
         <input name="due_date" type="date" required defaultValue={today} className={inputClass} />
       </label>
     </fieldset>
     {(networkError || error) && <p role="alert" className="text-sm text-red-700">{networkError || error}</p>}
-    {saved && <p role="status" className="text-sm text-emerald-700">Retorno adicionado.</p>}
-    <button disabled={pending} className={buttonClass}><Plus size={16} />{pending ? "Salvando…" : "Adicionar retorno"}</button>
+    {saved && <p role="status" className="text-sm text-emerald-700">Tarefa criada.</p>}
+    <button disabled={pending || Boolean(contacts && !contacts.length)} className={buttonClass}><Plus size={16} />{pending ? "Salvando…" : "Criar tarefa"}</button>
   </form>;
 }
 
@@ -115,7 +118,7 @@ export function TaskToggle({ task }: { task: ClientTask }) {
         if (result.error) setError(result.error); else router.refresh();
       });
     }} className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium hover:bg-gray-50 disabled:opacity-50"
-      aria-label={`${task.completed_at ? "Reabrir" : "Concluir"} retorno: ${task.title}`}>
+      aria-label={`${task.completed_at ? "Reabrir" : "Concluir"} tarefa: ${task.title}`}>
       {task.completed_at ? <RotateCcw size={14} /> : <Check size={14} />}
       {pending ? "Salvando…" : task.completed_at ? "Reabrir" : "Concluir"}
     </button>
@@ -136,7 +139,7 @@ export function SubmissionLink({ contactId, submissionId, unlink = false }: { co
       });
     }}>
       {unlink ? <Unlink size={14} /> : <Link2 size={14} />}
-      {pending ? "Salvando…" : unlink ? "Desvincular" : "Vincular a este cliente"}
+      {pending ? "Salvando…" : unlink ? "Remover associação" : "Associar resposta a este cliente"}
     </button>
     {(networkError || error) && <p role="alert" className="mt-2 text-xs text-red-700">{networkError || error}</p>}
   </div>;

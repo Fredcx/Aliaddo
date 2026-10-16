@@ -106,21 +106,21 @@ export default function FormsPortalPage() {
                         <div className="w-11 h-11 rounded-[16px] bg-[#1D1D1F] flex items-center justify-center shrink-0">
                             <FileText className="w-5 h-5 text-white" strokeWidth={1.8} />
                         </div>
-                        <h1 className="text-[26px] font-semibold text-[#1D1D1F] tracking-tight">Meus Formulários</h1>
+                        <h1 className="text-[26px] font-semibold text-[#1D1D1F] tracking-tight">Formulários</h1>
                     </div>
-                    <p className="text-[14px] text-[#86868B] mt-1 ml-[52px]">Crie e gerencie diferentes formulários para cada tipo de serviço.</p>
+                    <p className="text-[14px] text-[#86868B] mt-1 ml-[52px]">Crie as perguntas e compartilhe o link. Os preenchimentos chegam em Respostas e entregas.</p>
                 </div>
             </div>
 
             {/* Create New Form Section */}
-            <div className="bg-white rounded-[24px] p-6 border border-[#E5E5EA] shadow-[0_2px_12px_rgba(0,0,0,0.04)] mb-8 flex gap-4 items-center">
+            <div className="bg-white rounded-[24px] p-6 border border-[#E5E5EA] shadow-[0_2px_12px_rgba(0,0,0,0.04)] mb-8 flex flex-wrap gap-4 items-center">
                 <input 
                     type="text" 
                     placeholder="Digite o nome do novo formulário (ex: Consultoria Premium)" 
                     value={newFormTitle}
                     onChange={(e) => setNewFormTitle(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleCreateForm()}
-                    className="flex-1 bg-[#F5F5F7] border border-[#E5E5EA] rounded-xl px-4 py-3 text-[14px] outline-none focus:border-[#1D1D1F] transition-colors text-[#1D1D1F]"
+                    aria-label="Nome do novo formulário" className="min-w-0 basis-56 flex-1 bg-[#F5F5F7] border border-[#E5E5EA] rounded-xl px-4 py-3 text-[14px] outline-none focus:border-[#1D1D1F] transition-colors text-[#1D1D1F]"
                 />
                 <button 
                     onClick={handleCreateForm}

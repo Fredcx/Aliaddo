@@ -23,6 +23,34 @@
   }
 }
 
+@layer components {
+  .workspace-shell {
+    @apply min-h-screen bg-[#F5F6F8] text-[#17191F];
+  }
+  .workspace-card {
+    @apply rounded-3xl border border-[#E3E7EC] bg-white shadow-[0_2px_10px_rgba(17,24,39,0.025)];
+  }
+  .workspace-nav {
+    @apply flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[#526071] transition-colors hover:bg-[#F5F6F8] hover:text-[#17191F];
+  }
+  .workspace-nav-active {
+    @apply bg-[#E8F8FA] text-[#087F8C] shadow-[inset_3px_0_0_#0A9DAA] hover:bg-[#E8F8FA] hover:text-[#087F8C];
+  }
+  .workspace-shell :where(a, button, input, select, textarea, summary):focus-visible {
+    outline: 2px solid #087F8C;
+    outline-offset: 3px;
+  }
+  .workspace-tab {
+    @apply inline-flex shrink-0 items-center rounded-full px-4 py-2.5 text-sm font-medium text-[#526071] transition hover:bg-white;
+  }
+  .workspace-tab[aria-current="page"] {
+    @apply bg-white text-[#17191F] shadow-sm;
+  }
+  .workspace-task:target {
+    @apply rounded-xl bg-[#E8F8FA] px-4 ring-1 ring-[#0A9DAA]/30;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

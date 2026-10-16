@@ -13,8 +13,8 @@ export default async function OpportunityPage({ params }: { params: { id: string
   const { data, error } = await db.from("opportunities").select("*, contacts(name)").eq("profile_id", user.id).eq("id", params.id).maybeSingle();
   if (error) return <main className={workspaceClass}><DataError /></main>;
   if (!data) notFound(); const item = data as Opportunity;
-  return <main className={`${workspaceClass} !max-w-3xl`}><Link href="/pipeline" className="mb-6 inline-block text-sm text-[#71816e]">← Voltar ao funil</Link><WorkspaceHeader eyebrow="Cada conversa tem continuidade" title="Detalhes da oportunidade" description="Atualize o interesse, a etapa e o próximo passo deste relacionamento." />
-    <div className="mb-5 flex flex-wrap gap-4 text-sm text-[#147D69]"><Link href={`/clients/${item.contact_id}`}>Abrir ficha do cliente ↗</Link>{item.source_submission_id && <Link href="/dashboard">Ver respostas na Mesa de Trabalho ↗</Link>}</div>
+  return <main className={`${workspaceClass} !max-w-3xl`}><Link href="/pipeline" className="mb-6 inline-block text-sm text-[#526071]">← Voltar ao funil</Link><WorkspaceHeader eyebrow="Cada conversa tem continuidade" title="Detalhes da oportunidade" description="Atualize o interesse, a etapa e o próximo passo deste relacionamento." />
+    <div className="mb-5 flex flex-wrap gap-4 text-sm text-[#087F8C]"><Link href={`/clients/${item.contact_id}`}>Abrir ficha do cliente ↗</Link>{item.source_submission_id && <Link href="/dashboard">Abrir respostas e entregas ↗</Link>}</div>
     <section className={panelClass}><OpportunityForm item={item} contacts={[{ id: item.contact_id, name: item.contacts?.name || "Cliente" }]} /></section>
   </main>;
 }
